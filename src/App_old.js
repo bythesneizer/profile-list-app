@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import Profile from "../Profile/Profile.js";
-import "./Profiles.css";
+import React from "react";
+import Profiles from "./components/Profiles/Profiles.js";
+import "./App.css";
+import Api from "./utils/Api.js";
 
-import Api from "../../utils/Api.js";
-
-class Profiles extends Component {
+class App extends React.Component {
   state = {
     profiles: [],
     error: null,
@@ -30,6 +29,15 @@ class Profiles extends Component {
     );
   }
 
+  // getProfiles = async () => {
+  //   let response = await Axios.get("https://randomuser.me/api/?results=3");
+  //   let { data } = response.data;
+  //   this.setState({
+  //     profiles: data
+  //   });
+  //   console.log(this.state.profiles);
+  // };
+
   render() {
     const { error, isLoaded, profiles } = this.state;
     if (error) {
@@ -38,14 +46,12 @@ class Profiles extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div className="profileList">
-          {profiles.map(profile => {
-            return <Profile profile={profile} key={profile.name.first} />;
-          })}
+        <div className="App">
+          <Profiles profiles={profiles} />
         </div>
       );
     }
   }
 }
 
-export default Profiles;
+export default App;
